@@ -1,6 +1,9 @@
-# MCP Server Builder
+# MCP Docs Server
 
 A Model Context Protocol (MCP) server for searching MCP protocol documentation. Built with TypeScript using the official MCP SDK.
+
+[![npm version](https://img.shields.io/npm/v/@praveenc/mcp-docs-server.svg)](https://www.npmjs.com/package/@praveenc/mcp-docs-server)
+[![MCP Registry](https://img.shields.io/badge/MCP-Registry-blue)](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.praveenc%2Fmcp-docs-server/versions/0.1.0)
 
 ## Features
 
@@ -11,76 +14,39 @@ A Model Context Protocol (MCP) server for searching MCP protocol documentation. 
 
 ## Installation
 
-```bash
-npm install
-npm run build
-```
+### Quick Start (Recommended)
 
-## Usage
-
-### Testing with MCP Inspector
-
-The easiest way to test the server is with the MCP Inspector:
-
-```bash
-# Build first
-npm run build
-
-# Run inspector with compiled JS
-npx @modelcontextprotocol/inspector node dist/index.js
-
-# Or run with tsx for development (no build needed)
-npx @modelcontextprotocol/inspector npx tsx src/index.ts
-```
-
-### As an MCP Server
-
-Add to your MCP client configuration (e.g., Claude Desktop, Kiro):
+Add to your MCP client configuration (Claude Desktop, Kiro, etc.):
 
 ```json
 {
   "mcpServers": {
-    "mcp-server-builder": {
-      "command": "node",
-      "args": ["/path/to/mcp-builder-ts/dist/index.js"]
-    }
-  }
-}
-```
-
-Or using tsx for development:
-
-```json
-{
-  "mcpServers": {
-    "mcp-server-builder": {
+    "mcp-docs-server": {
       "command": "npx",
-      "args": ["tsx", "/path/to/mcp-builder-ts/src/index.ts"]
+      "args": ["-y", "@praveenc/mcp-docs-server"]
     }
   }
 }
 ```
 
-### Development
+That's it! The server will be downloaded and run automatically.
+
+### Global Install
 
 ```bash
-# Run in development mode
-npm run dev
+npm install -g @praveenc/mcp-docs-server
+```
 
-# Run tests
-npm test
+Then configure your MCP client:
 
-# Type check
-npm run typecheck
-
-# Build
-npm run build
-
-# Test with MCP Inspector (after build)
-npm run inspect
-
-# Test with MCP Inspector (development, no build needed)
-npm run inspect:dev
+```json
+{
+  "mcpServers": {
+    "mcp-docs-server": {
+      "command": "mcp-docs-server"
+    }
+  }
+}
 ```
 
 ## Tools
@@ -139,6 +105,54 @@ Fetch full document content by URL.
   "url": "https://modelcontextprotocol.io/specification/2025-11-25/server/tools.md",
   "title": "Tools",
   "content": "# Tools\n\nTools enable servers to expose executable functionality..."
+}
+```
+
+## Testing with MCP Inspector
+
+```bash
+npx @modelcontextprotocol/inspector npx -y @praveenc/mcp-docs-server
+```
+
+## Development
+
+Clone the repository for local development:
+
+```bash
+git clone https://github.com/praveenc/mcp-docs-server.git
+cd mcp-docs-server
+npm install
+```
+
+### Commands
+
+```bash
+# Run in development mode
+npm run dev
+
+# Run tests
+npm test
+
+# Type check
+npm run typecheck
+
+# Build
+npm run build
+
+# Test with MCP Inspector (development)
+npm run inspect:dev
+```
+
+### Local MCP Client Config (Development)
+
+```json
+{
+  "mcpServers": {
+    "mcp-docs-server": {
+      "command": "npx",
+      "args": ["tsx", "/path/to/mcp-docs-server/src/index.ts"]
+    }
+  }
 }
 ```
 
